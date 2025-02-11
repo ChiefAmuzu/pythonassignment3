@@ -1,0 +1,12 @@
+intro = ("this is my first python assignment")
+
+#print (intro)
+print(intro.split(" "))
+print(intro.split(" ")[0])
+print(intro.split(" ")[5])
+print(intro[0:3])
+print(intro[31:])
+print(intro[::-1])
+print(intro.upper())
+print(intro.lower())
+print(intro.replace(" ", "-"))
