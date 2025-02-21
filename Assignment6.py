@@ -1,74 +1,54 @@
-def get_input(prompt, default_value=""):  # Handle input safely in restricted environments
-    try:
-        return input(prompt)
-    except OSError:
-        print(f"Input blocked. Using default: {default_value}")
-        return default_value
+std_details= {}
 
-students = {}  # Dictionary to store student details
-
-def display_menu():
-    print("\nStudent Management System")
-    print("1. Add Student")
-    print("2. Remove Student")
+while True:
+    print("\nWelcome to the Student Management System")
+    print("\n1. Add a Student, collect(Name,Age, list of courses and grade)")
+    print("2. Remove a Student")
     print("3. View One Student")
     print("4. View All Students")
     print("5. Exit")
-
-def add_student():
-    name = get_input("Enter student's name: ").strip()
-    age = get_input("Enter student's age: ").strip()
-    grade = get_input("Enter student's grade: ").strip()
-    course = get_input("Enter student's course: ").strip()
     
-    if name and age.isdigit() and grade and course:
-        students[name] = {"age": int(age), "grade": grade, "course": course}
-        print(f"Student {name} added successfully!")
-    else:
-        print("Invalid input. Please provide valid details.")
-
-def remove_student():
-    name = get_input("Enter student's name to remove: ").strip()
-    if name in students:
-        del students[name]
-        print(f"Student {name} removed successfully!")
-    else:
-        print("Student not found.")
-
-def view_student():
-    name = get_input("Enter student's name to view: ").strip()
-    if name in students:
-        student = students[name]
-        print(f"\nName: {name}\nAge: {student['age']}\nGrade: {student['grade']}\nCourse: {student['course']}")
-    else:
-        print("Student not found.")
-
-def view_all_students():
-    if students:
-        print("\nAll Students:")
-        for name, details in students.items():
-            print(f"\nName: {name}\nAge: {details['age']}\nGrade: {details['grade']}\nCourse: {details['course']}")
-    else:
-        print("No students found.")
-
-def main():
-    while True:
-        display_menu()
-        choice = get_input("Enter your choice: ", "5").strip()
-        
-        if choice == "1":
-            add_student()
-        elif choice == "2":
-            remove_student()
-        elif choice == "3":
-            view_student()
-        elif choice == "4":
-            view_all_students()
-        elif choice == "5":
-            print("Exiting the program. Goodbye!")
-            break
+    option = input("\nChoose an Option:")
+    if option == "1":
+        name= input("Enter Student Name:")
+        age=input("Enter Student Age:")
+        course=input("Enter Student Course:")
+        grade=input("Enter Student Grade:")
+       # course_grade=dict(zip(course.split(","),grade.split(",")))
+        std_details[name]={"Age":age, "Course":course, "Grade":grade}
+        #std_details[name]={"Age":age, "Course":course, "Grade":grade}
+        #print(std_details)
+        print(f" {name} has been added to the system")
+    
+    elif option == "2":
+        print("\nRemove Student From System")
+        name=input('Enter Name of Student to remove:')
+        if name in std_details:    
+            del std_details[name]
+            print(f"{name} has been removed from system")
         else:
-            print("Invalid choice! Please enter a number between 1 and 5.")
+            print(f"{name} not in records")
 
-if __name__ == "__main__":
-    main()
+    elif option == "3":
+        print("\nView Student Details")
+        name=input("Enter Name of Student To View:")
+        if name in std_details:
+            #print(f"{name} {std_details[name]}")
+            av=std_details[name]
+            print(f'-{name}',*[f"{k}:{v}" for k, v in av.items()])
+        else:
+            print("No Records Found")
+
+    elif option == "4":
+        if std_details:
+            print("\nAll Student In System")
+            for key, value in std_details.items():
+                #print(key,value)
+                ab=value
+                print(f'-{key}',*[f"{k}: {v}" for k, v in ab.items()],sep=",")
+            
+    elif option == "5":
+        print("Goodbye!")
+        break
+    else:
+        print("Invalid Input, Enter a Number(1-5)")
