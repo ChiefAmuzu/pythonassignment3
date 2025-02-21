@@ -1,58 +1,50 @@
-def get_input(prompt, default_value=""):  # Function to simulate input in restricted environments
-   
-        return input(prompt)  # Standard input function
-        print(f"Input blocked. Using default: {default_value}")
-        return default_value  # Use default values if input() is restricted
-
-def main():
-    book_library = []  # List to store book titles
+#Book Title Library
+#Add Title To Library
+def book_library():
+    library = []
     
     while True:
-        print("\nWelcome to the Book Title Library!")
-        print("Choose an option:")
-        print("1. Add a Book")
-        print("2. Remove a Book")
-        print("3. View All Books")
-        print("4. Exit")
-        
-        choice = get_input("Enter your choice: ", "4")
-        
-        if choice == "1":
-            book_title = get_input("Enter the book title: ").strip()
-            if book_title:
-                book_library.append(book_title)
-                print(f'"{book_title}" has been added to the library.')
-            else:
-                print("Invalid input. Book title cannot be empty.")
-        
-        elif choice == "2":
-            if book_library:
-                print("Books in the Library:")
-                for i, book in enumerate(book_library, 1):
-                    print(f"{i}. {book}")
-                book_to_remove = get_input("Enter the book title to remove: ").strip()
-                if book_to_remove in book_library:
-                    book_library.remove(book_to_remove)
-                    print(f'"{book_to_remove}" has been removed from the library.')
-                else:
-                    print("Book not found in the library.")
-            else:
-                print("No books in the library to remove.")
-        
-        elif choice == "3":
-            if book_library:
-                print("Books in the Library:")
-                for book in book_library:
-                    print(f"- {book}")
-            else:
-                print("The library is empty.")
-        
-        elif choice == "4":
-            print("Goodbye!")
-            break
-        
-        else:
-            print("Invalid choice! Please enter a number between 1 and 4.")
+    #Menu printed for Book Library   
+        print("\nWelcome To The Book Title Library")
 
-if __name__ == "__main__":
-    main()
+        print("\n1. Add a Book ")
+        print("2. Remove a Book ")
+        print("3. View All Books")
+        print("4. Search Title In Library")
+        print("5. Exit")
+
+        option =input("\nEnter Your choice 1-5: ")
+        if option == "1":
+            title = input( "\nEnter Book Title(s) separated by comma: ")
+            library.extend(title.split(','))
+            print(f'{title} has been added to the library')
+            
+            n_library=[lit.strip().lower() for lit in library]
+
+        elif option == "2":
+            title= input("\n Enter Book Title to Remove: ").strip().lower()
+            if title in n_library:
+                n_library.remove(title)
+                print(f" '{title.title()}' removed from the Library")
+            else:
+                print(f" '{title}' not in Library")
+
+        elif option == "3":
+            print("\nBooks In The Library")
+            for book in n_library:
+                print(f'-{(book.title())}')
+
+        elif option == "4":
+            print("Search for Book Title")
+            bk= input("\nEnter The Book Title:").strip().lower()
+            if bk in n_library:
+                print(f" {(bk.title())} is Available")
+            else:
+                print("Book Not In Library")
+            
+        elif option == "5":
+            print("Good Bye!")
+            break
+        else:
+            print("Invalid Input, Enter the a Number (1-5)")
+book_library()
